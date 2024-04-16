@@ -1,5 +1,5 @@
 //
-//  Weather_AppApp.swift
+//  WeatherApp.swift
 //  Weather App
 //
 //  Created by Максим Шишлов on 14.04.2024.
@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct Weather_AppApp: App {
+struct WeatherApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WeatherView()
         }
     }
 }
