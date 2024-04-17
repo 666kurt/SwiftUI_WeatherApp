@@ -8,62 +8,41 @@
 import Foundation
 
 struct WeatherModel: Decodable {
-    let coord: Coord
-    let weather: [Weather]
-    let base: String
-    let main: Main
-    let visibility: Int
-    let wind: Wind
-    let clouds: Clouds
-    let dt: Int
-    let sys: Sys
-    let timezone, id: Int
-    let name: String
-    let cod: Int
-}
+    var coord: CoordinatesResponse
+    var weather: [WeatherResponse]
+    var main: MainResponse
+    var name: String
+    var wind: WindResponse
 
-// MARK: - Clouds
-struct Clouds: Codable {
-    let all: Int
-}
+    struct CoordinatesResponse: Decodable {
+        var lon: Double
+        var lat: Double
+    }
 
-// MARK: - Coord
-struct Coord: Codable {
-    let lon, lat: Double
-}
+    struct WeatherResponse: Decodable {
+        var id: Double
+        var main: String
+        var description: String
+        var icon: String
+    }
 
-// MARK: - Main
-struct Main: Codable {
-    let temp, feelsLike, tempMin, tempMax: Double
-    let pressure, humidity, seaLevel, grndLevel: Int
-
-    enum CodingKeys: String, CodingKey {
-        case temp
-        case feelsLike = "feels_like"
-        case tempMin = "temp_min"
-        case tempMax = "temp_max"
-        case pressure, humidity
-        case seaLevel = "sea_level"
-        case grndLevel = "grnd_level"
+    struct MainResponse: Decodable {
+        var temp: Double
+        var feels_like: Double
+        var temp_min: Double
+        var temp_max: Double
+        var pressure: Double
+        var humidity: Double
+    }
+    
+    struct WindResponse: Decodable {
+        var speed: Double
+        var deg: Double
     }
 }
 
-// MARK: - Sys
-struct Sys: Codable {
-    let type, id: Int
-    let country: String
-    let sunrise, sunset: Int
-}
-
-// MARK: - Weather
-struct Weather: Codable {
-    let id: Int
-    let main, description, icon: String
-}
-
-// MARK: - Wind
-struct Wind: Codable {
-    let speed: Double
-    let deg: Int
-    let gust: Double
+extension WeatherModel.MainResponse {
+    var feelsLike: Double { return feels_like }
+    var tempMin: Double { return temp_min }
+    var tempMax: Double { return temp_max }
 }
